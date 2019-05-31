@@ -1,0 +1,6 @@
+*
+!.gitignore
+!.gitattributes
+!README.md
+!src/**/*
+!pom.xml
