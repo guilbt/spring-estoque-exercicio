@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.ithappens.mapper.ItemPedidoEstoqueMapper">
+
+    <insert id="insertByParams"
+            keyProperty="id" keyColumn="item_pedido_estoque_id">
+        INSERT INTO estoque.item_pedido_estoque
+        (
+          pedido_estoque_id,
+          produto_id,
+          quantidade
+        )
+        VALUES
+        (
+          #{pedidoEstoqueId},
+          #{produtoId},
+          #{quantidade}
+        )
+    </insert>
+
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.ithappens.mapper.ProdutoMapper">
+
+    <resultMap id="produtosMap" type="br.com.ithappens.model.Produto">
+        <result property="id" column="produto_id"/>
+        <result property="descricao" column="descricao"/>
+    </resultMap>
+
+    <resultMap id="produtoEstoqueDTO" type="br.com.ithappens.model.dto.ProdutoEstoqueDTO">
+        <result property="produtoId" column="produto_id"/>
+        <result property="produtoDesc" column="produto_descricao"/>
+        <result property="estoqueId" column="estoque_id" />
+        <result property="quantidade" column="estoque_quantidade" />
+    </resultMap>
+
+    <select id="getById" resultMap="produtosMap" useCache="false">
+        SELECT produto_id, descricao
+            FROM estoque.produto p
+            WHERE p.produto_id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="br.com.ithappens.model.Produto" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="produto_id">
+        INSERT INTO estoque.produto
+        (
+          descricao
+        )
+        VALUES
+        (
+          #{produto.descricao}
+        )
+    </insert>
+
+    <update id="update" parameterType="br.com.ithappens.model.Produto">
+    	UPDATE estoque.produto p
+        	SET descricao = #{produto.descricao}
+        		where p.produto_id = #{produto.id}
+    </update>
+
+    <select id="getProdutoEstoqueDTOByFilialId"
+            resultMap="produtoEstoqueDTO"
+            useCache="false"
+    >
+        SELECT
+            p.produto_id, p.descricao produto_descricao,
+            e.estoque_id, e.quantidade estoque_quantidade
+            from
+                estoque.filial f
+                join estoque.estoque e on f.filial_id = e.filial_id
+                join estoque.produto p on e.produto_id = p.produto_id
+                where f.filial_id = #{filialId}
+    </select>
+
+    <select id="selectAll"
+            resultMap="produtosMap"
+            useCache="false"
+    >
+        select produto_id, descricao
+            FROM estoque.produto p
+    </select>
+</mapper>

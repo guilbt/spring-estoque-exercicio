@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.ithappens.mapper.PedidoEstoqueMapper">
+
+    <insert id="insert" parameterType="br.com.ithappens.model.PedidoEstoque" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="pedido_estoque_id">
+        INSERT INTO estoque.pedido_estoque
+        (
+          filial_id,
+          is_entrada
+        )
+        VALUES
+        (
+          #{pedidoEstoque.filial.id},
+          #{pedidoEstoque.isEntrada}
+        )
+    </insert>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.ithappens.mapper.EstoqueMapper">
+
+    <resultMap id="estoqueMap" type="br.com.ithappens.model.Estoque">
+        <result property="id" column="estoque_id"/>
+        <result property="quantidade" column="quantidade" />
+    </resultMap>
+
+    <select id="getByProdutoIdFilialId" resultMap="estoqueMap" useCache="false">
+        SELECT
+            e.estoque_id,
+            e.quantidade
+            FROM estoque.estoque e
+            WHERE e.produto_id = #{produtoId}
+                and e.filial_id = #{filialId}
+            LIMIT 1
+    </select>
+
+    <update id="updateQuantidade">
+    	UPDATE estoque.estoque e
+        	SET quantidade = #{quantidade}
+        		where e.estoque_id = #{id}
+    </update>
+
+
+    <insert id="insert" parameterType="br.com.ithappens.model.Estoque" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="estoque_id">
+        INSERT INTO estoque.estoque
+        (
+          produto_id,
+          filial_id,
+          quantidade
+        )
+        VALUES
+        (
+          #{estoque.produto.id},
+          #{estoque.filial.id},
+          #{estoque.quantidade}
+        )
+    </insert>
+</mapper>
