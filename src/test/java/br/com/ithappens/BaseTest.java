@@ -24,6 +24,9 @@ public class BaseTest {
     @Autowired
     private FilialMapper filialMapper;
 
+    protected final int quantidadeEstoqueBase = 50;
+    protected final int quantidadeItemPedidoEstoqueBase = 10;
+
     protected Produto criarProdutoDeTeste() {
         Produto produto = new Produto();
         produto.setDescricao("teste");
@@ -41,13 +44,20 @@ public class BaseTest {
     protected Estoque criarEstoqueDeTesteCom50Qtd() {
         Produto produto = criarProdutoDeTeste();
         Filial filial = criarFilialDeTeste();
-        Estoque estoque = new Estoque(null, produto, filial, 50);
+        Estoque estoque = new Estoque(null, produto, filial, quantidadeEstoqueBase);
+        estoqueMapper.insert(estoque);
+        return estoque;
+    }
+
+    protected Estoque criarEstoqueDeTesteEmFilialCom50Qtd(Filial filial) {
+        Produto produto = criarProdutoDeTeste();
+        Estoque estoque = new Estoque(null, produto, filial, quantidadeEstoqueBase);
         estoqueMapper.insert(estoque);
         return estoque;
     }
 
     protected ItemPedidoEstoque criarItemPedidoEstoqueMemoriaSemPedidoEstoqueCom10Qtd(Produto produto) {
-        ItemPedidoEstoque itemPedidoEstoque = new ItemPedidoEstoque(null, null, produto, 10);
+        ItemPedidoEstoque itemPedidoEstoque = new ItemPedidoEstoque(null, null, produto, quantidadeItemPedidoEstoqueBase);
         return itemPedidoEstoque;
     }
 

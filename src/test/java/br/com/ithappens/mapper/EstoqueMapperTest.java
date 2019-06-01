@@ -30,11 +30,10 @@ public class EstoqueMapperTest extends BaseTest {
 
   @Test
   public void alterarQuantidadeEstoque(){
-    Integer qtdSomada = 50;
     Estoque estoque = criarEstoqueDeTesteCom50Qtd();
     Integer quantidadeInicial = estoque.getQuantidade();
-    estoque.addQuantidade(qtdSomada);
-    assertEquals(quantidadeInicial+qtdSomada, estoque.getQuantidade());
+    estoque.addQuantidade(quantidadeItemPedidoEstoqueBase);
+    assertEquals(quantidadeInicial+quantidadeItemPedidoEstoqueBase, estoque.getQuantidade());
     estoqueMapper.updateQuantidade(estoque.getId(), estoque.getQuantidade());
     Estoque estoqueBanco = estoqueMapper.getByProdutoIdFilialId(
             estoque.getProduto().getId(),
